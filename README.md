@@ -108,6 +108,21 @@ Teste completo de transferência bancária que valida:
 4. Validação do valor transferido no extrato
 5. Validação do saldo atualizado
 
+**Estrutura do teste:**
+
+- **beforeEach**: Hook executado antes de cada teste que:
+  - Instancia todos os Page Objects necessários
+  - Realiza a navegação até a página de login
+  - Executa o login automaticamente
+  - Valida o sucesso do login
+- **test**: Cada teste começa com o usuário já autenticado, focando apenas na lógica específica do cenário
+
+Esta estrutura segue as melhores práticas do Playwright, garantindo:
+- Isolamento entre testes
+- Reutilização de código
+- Estado limpo antes de cada execução
+- Facilidade para adicionar novos testes no futuro
+
 ### `/playwright.config.ts`
 
 Configuração do Playwright:
