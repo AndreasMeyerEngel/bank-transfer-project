@@ -10,18 +10,23 @@ import {
 } from "../fixtures/bankingData";
 
 test.describe("Cenário 1: Transferência Bancária", () => {
-  test("Deve realizar uma transferência e validar o saldo e extrato", async ({
-    page,
-  }) => {
-    const loginPage = new LoginPage(page);
-    const mainPage = new MainPage(page);
-    const transferPage = new TransferPage(page);
-    const summaryPage = new AccountSummaryPage(page);
+  let loginPage: LoginPage;
+  let mainPage: MainPage;
+  let transferPage: TransferPage;
+  let summaryPage: AccountSummaryPage;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    mainPage = new MainPage(page);
+    transferPage = new TransferPage(page);
+    summaryPage = new AccountSummaryPage(page);
 
     await loginPage.goto();
     await loginPage.login(CREDENTIALS.user, CREDENTIALS.pass);
     await loginPage.checkLoginSuccess();
+  });
 
+  test("Deve realizar uma transferência e validar o saldo e extrato", async () => {
     await mainPage.clickAccountSummary();
     await summaryPage.selectAccount(ACCOUNTS.checking);
     const initialBalance = await summaryPage.getAvailableBalance();
